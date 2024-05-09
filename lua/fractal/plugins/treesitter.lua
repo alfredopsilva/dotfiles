@@ -42,7 +42,7 @@ return {
         "query",
         "vimdoc",
         "c",
-        "java"
+        "java",
       },
       incremental_selection = {
         enable = true,
