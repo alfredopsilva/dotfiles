@@ -5,51 +5,22 @@ return {
     name = "catppuccin",
     config = function()
       require("catppuccin").setup({
-
-        -- transparent_background = false, -- disables setting the background color.
-        -- integrations = {
-        --   which_key = true,
-        --   cmp = true,
-        --   gitsigns = true,
-        --   treesitter = true,
-        --   notify = false,
-        --   telescope = {
-        --     enabled = true,
-        --     style = "nvchad",
-        --   },
-        -- },
         background = {
           light = "latte",
           dark = "mocha",
         },
         color_overrides = {
           latte = {
-            rosewater = "#c14a4a",
-            flamingo = "#c14a4a",
-            red = "#c14a4a",
-            maroon = "#c14a4a",
-            pink = "#945e80",
-            mauve = "#945e80",
-            peach = "#c35e0a",
-            yellow = "#b47109",
-            green = "#6c782e",
-            teal = "#4c7a5d",
-            sky = "#4c7a5d",
-            sapphire = "#4c7a5d",
-            blue = "#45707a",
-            lavender = "#45707a",
-            text = "#654735",
-            subtext1 = "#73503c",
-            subtext0 = "#805942",
-            overlay2 = "#8c6249",
-            overlay1 = "#8c856d",
-            overlay0 = "#a69d81",
-            surface2 = "#bfb695",
-            surface1 = "#d1c7a3",
-            surface0 = "#e3dec3",
-            base = "#f9f5d7",
-            mantle = "#f0ebce",
-            crust = "#e8e3c8",
+            peach = "#292929",
+            surface2 = "#c5cae9",
+            surface1 = "#e8eaf6",
+            surface0 = "#f3f4f5", -- Very light grey for UI elements
+            teal = "#595959",
+            sky = "#595959",
+            sapphire = "#595959",
+            base = "#ffffff", -- White background
+            mantle = "#fafafa", -- Off-white for some UI elements
+            crust = "#e7e7e7",
           },
           mocha = {
             rosewater = "#ea6962",
@@ -177,6 +148,7 @@ return {
               Ignore = { fg = colors.subtext1 },
               Macro = { fg = colors.teal },
 
+              -- TreeSitter highlights
               TSAnnotation = { fg = colors.mauve },
               TSAttribute = { fg = colors.mauve },
               TSBoolean = { fg = colors.mauve },
@@ -245,6 +217,7 @@ return {
               TSVariable = { fg = colors.text },
               TSVariableBuiltin = { fg = colors.mauve },
 
+              -- New TreeSitter highlights
               ["@annotation"] = { link = "TSAnnotation" },
               ["@attribute"] = { link = "TSAttribute" },
               ["@boolean"] = { link = "TSBoolean" },
@@ -328,6 +301,7 @@ return {
               ["@variable"] = { link = "TSVariable" },
               ["@variable.builtin"] = { link = "TSVariableBuiltin" },
 
+              -- LSP Semantic Token Groups
               ["@lsp.type.class"] = { link = "TSType" },
               ["@lsp.type.comment"] = { link = "TSComment" },
               ["@lsp.type.decorator"] = { link = "TSFunction" },
@@ -357,16 +331,24 @@ return {
             return {
               IblIndent = { fg = colors.mantle },
               IblScope = { fg = colors.surface1 },
-
               LineNr = { fg = colors.surface1 },
             }
           end,
         },
       })
+
+      -- Set up the toggle function
+      _G.toggle_catppuccin_theme = function()
+        local current_flavor = vim.g.catppuccin_flavour
+        local new_flavor = current_flavor == "latte" and "mocha" or "latte"
+        vim.g.catppuccin_flavour = new_flavor
+        vim.cmd.colorscheme("catppuccin")
+      end
+
       vim.api.nvim_set_hl(0, "NavicIconsOperator", { default = true, bg = "none", fg = "#eedaad" })
       vim.api.nvim_set_hl(0, "NavicText", { default = true, bg = "none", fg = "#eedaad" })
       vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "none", fg = "#eedaad" })
-      --
+
       vim.api.nvim_command("colorscheme catppuccin")
     end,
   },
